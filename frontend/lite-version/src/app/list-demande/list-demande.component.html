@@ -1,0 +1,14 @@
+<script src="https://kit.fontawesome.com/f34a920eb2.js" crossorigin="anonymous"></script>
+<div class="cantainer">
+  <div class="table table-striped">
+    <tr>
+      <th>Titre</th><th>Description</th><th>Etat<th>Action</th>
+    </tr>
+<tr *ngFor="let demande of demandes" >
+  <td> {{ demande.titre }} </td>
+  <td> {{ demande.description }} </td>
+  <td> {{ demande.etat.designation }} </td>
+  <td><button type="submit" class="btn btn-outline-primary"><i class="fa fa-caret-right"></i></button></td>
+</tr>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+
+<script src="https://kit.fontawesome.com/f34a920eb2.js" crossorigin="anonymous"></script>
+  <ul class="pcoded-item pcoded-left-item" item-border="none" item-border-style="solid" subitem-border="solid" *ngFor="let f of foncs" >
+    <li [routerLinkActive]="['active']">
+      <a href="{{f.url}}" >
+        <span class="pcoded-micon"><i class="{{ f.icon }}"></i></span>
+        <span class="pcoded-mtext">{{ f.designation }}</span>
+
+      </a>
+    </li>
+  </ul>
