@@ -18,7 +18,7 @@ public class Profile implements Serializable {
     @Id @GeneratedValue
     private UUID uuid_profile;
     private String name;
-   @ManyToMany( fetch =  FetchType.LAZY)
+   @ManyToMany( fetch =  FetchType.EAGER)
    private Collection<Utilisateur> utilisateurs = new ArrayList<>();
 
 }

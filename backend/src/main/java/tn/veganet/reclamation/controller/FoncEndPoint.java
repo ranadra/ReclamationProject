@@ -1,5 +1,7 @@
 package tn.veganet.reclamation.controller;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +20,8 @@ public class FoncEndPoint {
         foncRepository.save(fonc);
         return fonc;
     }
+    @ApiOperation(value = "", authorizations = { @Authorization(value="jwtToken") })
+
     @GetMapping(value = "/fonctionnalites",produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Fonc> getFonc(){
        List<Fonc> foncs = foncRepository.findAll();

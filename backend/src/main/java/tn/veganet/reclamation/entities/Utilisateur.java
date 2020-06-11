@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -39,7 +41,34 @@ public class Utilisateur implements Serializable {
         this.profiles = profiles;
     }
 
-    @ManyToMany(fetch =  FetchType.EAGER)
+    public UUID getUuid_util() {
+        return uuid_util;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public Collection<Profile> getProfiles() {
+        return profiles;
+    }
+
+    public void setProfiles(Collection<Profile> profiles) {
+        this.profiles = profiles;
+    }
+
+    @JsonIgnoreProperties(value= {"profiles"})
+
+    @ManyToMany(fetch =  FetchType.LAZY , cascade = CascadeType.ALL)
+    @Fetch(FetchMode.JOIN)
     @JoinTable(name = "utilprofile",
         joinColumns = @JoinColumn(name = "utilisateur_id", referencedColumnName = "uuid_util"),
         inverseJoinColumns = @JoinColumn(name = "profile_id", referencedColumnName = "uuid_profile"))

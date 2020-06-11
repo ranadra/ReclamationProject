@@ -33,7 +33,6 @@ public class UtilisateurService implements UtilisateurInterface {
         return  profileRepository.save(profile);
     }
 
-
     public void AddRoleToUser(RoleUser roleUser){
         String username = roleUser.getUsername();
         String rolename = roleUser.getRolename();

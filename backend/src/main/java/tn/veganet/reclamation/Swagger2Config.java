@@ -30,7 +30,7 @@ import static org.hibernate.validator.internal.util.CollectionHelper.newArrayLis
 @EnableSwagger2
 @ComponentScan(basePackages = "tn.veganet.reclamation")
 
-public class Swagger2Config  {
+public class Swagger2Config extends WebMvcConfigurationSupport {
 //    @Value("${config.oauth2.accessTokenUri}")
     private String accessTokenUri;
 
@@ -40,16 +40,29 @@ public class Swagger2Config  {
                 .select()
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
+                .build()
+                .apiInfo(apiInfo())
+                .securitySchemes(Arrays.asList(apiKey()));
+    }
+
+    private ApiInfo apiInfo() {
+        return new ApiInfoBuilder()
+                .title("Sig-Predict REST API Document")
+                .description("work in progress")
+                .termsOfServiceUrl("localhost")
+                .version("1.0")
                 .build();
     }
 
-    @Bean
-    public SecurityConfiguration security() {
-        return new SecurityConfiguration
-                (null,
-                        null,
-                        "", "",
-                        "Bearer access token", ApiKeyVehicle.HEADER, HttpHeaders.AUTHORIZATION,"");
+    private ApiKey apiKey() {
+        return new ApiKey("jwtToken", "Authorization", "header");
+    }
+    @Override
+    protected void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("swagger-ui.html")
+                .addResourceLocations("classpath:/META-INF/resources/");
+        registry.addResourceHandler("/webjars/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 
 
